@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>position relative和sticky区别</title>
+    
+  </head>
+  <body>
+    <style>
+      .container {
+        /* width: 700px; */
+        height: 200px;
+        background: blueviolet;
+      }
+      .box {
+        display: inline-block;
+        width: 100px;
+        height: 100px;
+      }
+      #one {
+        background: green;
+        color: white;
+      }
+      #two {
+        background: red;
+        color: white;
+        position: relative;
+        left: 1630px
+      }
+      #three {
+        background: yellowgreen;
+        color: white;
+      }
+    </style>
+    <div class="container">
+      <div class="box" id="one">One</div>
+      <div class="box" id="two">Two</div>
+      <div class="box" id="three">Three</div>
+    </div>
+   
+  </body>
+</html>

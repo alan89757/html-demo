@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <title>absolute + 负margin</title>
+    <title>css-table</title>
   </head>
   <body>
     <style>
@@ -10,15 +10,15 @@
         display: table-cell;
         text-align: center;
         vertical-align: middle;
+        width: 300px;
+        height: 300px;
+        border: 1px solid red;
       }
       .box {
-        position: absolute;
+        display: inline-block;
         width: 100px;
         height: 100px;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        background: green;   
+        background-color: yellowgreen;
       }
     </style>
     <div class="wp">

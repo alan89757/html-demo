@@ -2,24 +2,19 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <title>absolute + calc</title>
-    
+    <title>grid</title>
   </head>
   <body>
     <style>
       .wp {
-        position: relative;
-        border: 1px solid red;
+        display: grid;
         width: 300px;
         height: 300px;
+        border: 1px solid red;
       }
       .box {
-        position: absolute;
-        width: 100px;
-        height: 100px;
-        top: calc(50% - 50px);
-        left: calc(50% - 50px);
-        background: green;   
+        align-self: center;
+        justify-self: center;
       }
     </style>
     <div class="wp">

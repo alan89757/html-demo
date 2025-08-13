@@ -75,6 +75,7 @@ jobs:
               console.log(`Created PR: ${title}`);
             } else {
               console.log(`PR already exists: ${existingPrs.data[0].html_url}`);
+            }
           }
 
       - name: PAT Secret Missing Warning

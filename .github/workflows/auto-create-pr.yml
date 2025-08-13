@@ -1,5 +1,9 @@
 name: Auto Create PR from main to feature branch
 
+permissions:
+  contents: read
+  pull-requests: write
+
 on:
   push:
     branches:

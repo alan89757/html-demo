@@ -65,6 +65,7 @@ jobs:
               console.log(`Created PR: ${title}`);
             } else {
               console.log(`PR already exists: ${existingPrs.data[0].html_url}`);
+            }
             // Try to merge the PR if possible
             if (existingPrs.data[0].mergeable) {
               await github.rest.pulls.merge({
@@ -77,7 +78,6 @@ jobs:
             } else {
               console.log(`PR ${existingPrs.data[0].html_url} is not mergeable (has conflicts)`);
             }
-          }
 
       - name: Auto-merge PR if possible
         if: env.HAS_NEW_COMMITS == 'true'

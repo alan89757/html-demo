@@ -32,17 +32,8 @@ jobs:
             echo "HAS_NEW_COMMITS=false" >> $GITHUB_ENV
           fi
 
-      - name: Check for PAT secret
-        id: check_pat
-        run: |
-          if [ -z "${{ secrets.PAT }}" ]; then
-            echo "PAT_SECRET_MISSING=true" >> $GITHUB_ENV
-          else
-            echo "PAT_SECRET_MISSING=false" >> $GITHUB_ENV
-          fi
-
       - name: Create Pull Request
-        if: env.HAS_NEW_COMMITS == 'true' && env.PAT_SECRET_MISSING == 'false'
+        if: env.HAS_NEW_COMMITS == 'true'
         uses: actions/github-script@v7
         with:
           # Note: You need to create a Personal Access Token (PAT) with 'repo' scope and add it as a secret named 'PAT' in your repository
@@ -76,12 +67,3 @@ jobs:
             } else {
               console.log(`PR already exists: ${existingPrs.data[0].html_url}`);
             }
-          }
-
-      - name: PAT Secret Missing Warning
-        if: env.PAT_SECRET_MISSING == 'true'
-        run: |
-          echo "::error::Personal Access Token (PAT) secret is missing!"
-          echo "::error::Please create a PAT with 'repo' scope and add it as a secret named 'PAT' in your repository."
-          echo "::error::See https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token for more information."
-          exit 1

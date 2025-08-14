@@ -1,7 +1,7 @@
 name: Auto Create PR from main to feature branch
 
 permissions:
-  contents: write
+  contents: read
   pull-requests: write
 
 on:
@@ -36,6 +36,7 @@ jobs:
         if: env.HAS_NEW_COMMITS == 'true'
         uses: actions/github-script@v7
         with:
+          # Note: You need to create a Personal Access Token (PAT) with 'repo' scope and add it as a secret named 'PAT' in your repository
           github-token: ${{ secrets.GITHUB_TOKEN  }}
           script: |
             const baseBranch = '${{ env.BRANCH_NAME }}';
@@ -65,50 +66,4 @@ jobs:
               console.log(`Created PR: ${title}`);
             } else {
               console.log(`PR already exists: ${existingPrs.data[0].html_url}`);
-              // Try to merge the PR if possible
-              if (existingPrs.data[0].mergeable) {
-              await github.rest.pulls.merge({
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                pull_number: existingPrs.data[0].number,
-                merge_method: 'squash'
-              });
-              console.log(`Successfully merged PR: ${existingPrs.data[0].html_url}`);
-            } else {
-              console.log(`PR ${existingPrs.data[0].html_url} is not mergeable (has conflicts)`);
-            }
-
-      - name: Auto-merge PR if possible
-        if: env.HAS_NEW_COMMITS == 'true'
-        uses: actions/github-script@v7
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          script: |
-            const baseBranch = '${{ env.BRANCH_NAME }}';
-            const headBranch = 'main';
-
-            // Find the PR
-            const prs = await github.rest.pulls.list({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              head: `${context.repo.owner}:${headBranch}`,
-              base: baseBranch,
-              state: 'open'
-            });
-
-            if (prs.data.length > 0) {
-              const pr = prs.data[0];
-              // Check if PR is mergeable
-              if (pr.mergeable) {
-                // Merge the PR
-                await github.rest.pulls.merge({
-                  owner: context.repo.owner,
-                  repo: context.repo.repo,
-                  pull_number: pr.number,
-                  merge_method: 'squash'
-                });
-                console.log(`Successfully merged PR #${pr.number}`);
-              } else {
-                console.log(`PR #${pr.number} is not mergeable (has conflicts)`);
-              }
             }

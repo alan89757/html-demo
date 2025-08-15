@@ -37,7 +37,7 @@ jobs:
         id: create_pr
         uses: actions/github-script@v7
         with:
-          github-token: ${{ secrets.GITHUB_TOKEN  }}
+          github-token: ${{ secrets.ADMIN_PAT  }}
           script: |
             const baseBranch = '${{ env.BRANCH_NAME }}';
             const headBranch = 'main';
@@ -78,7 +78,7 @@ jobs:
         if: env.HAS_NEW_COMMITS == 'true'
         uses: actions/github-script@v7
         with:
-          github-token: ${{ secrets.GITHUB_TOKEN  }}
+          github-token: ${{ secrets.ADMIN_PAT  }}
           script: |
             const prNumber = ${{ steps.create_pr.outputs.result }}.prNumber;
             const owner = context.repo.owner;
